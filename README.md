@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/Dataport/xk6-filewriter)](https://goreportcard.com/report/github.com/Dataport/xk6-filewriter)
+
 # k6filewriter
 
 xk6 Module for creating and writing/logging strings into local files during a loadtest with [k6](https://k6.io/). If the directories and subdirectories **do not exist**, 
