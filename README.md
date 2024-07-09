@@ -27,6 +27,10 @@ filewriter.writeString("path", "filename", "myAddedString")
 
 //append to an existing file
 filewriter.appendString("path", "filename", "myAddedString")
+
+// Create a new file. Existing file will be deleted
+// On Windows write protection will not prevent deletion
+filewriter.createFile("path", "filename")
 ```
 
 ## Adding new code

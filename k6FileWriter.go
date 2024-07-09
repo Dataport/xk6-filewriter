@@ -47,3 +47,36 @@ func (d *FileWriter) AppendString(path string, filename string, s string) error 
 	}
 	return nil
 }
+
+
+// note: no check if other fileWriter threads are running
+// note: on Windows write protected files can be overwritten when not protected against deletion
+func (d *FileWriter) CreateFile(path string, filename string) error {
+	
+	// check and create path
+	_, err := os.Stat(path)	
+	if err != nil {
+		os.MkdirAll(path, 0750)
+	}
+	
+	filePath := fmt.Sprintf("%s%s", path, filename)
+	
+	// 	delete existing file	
+	_, err = os.Stat(filePath);
+	if !errors.Is(err, os.ErrNotExist) {
+		err := os.Remove(filePath)
+		if(err != nil){
+			var errorsString string = fmt.Sprintf("File %s cannot be removed", filePath)
+			return errors.New(errorsString)
+		}
+	}
+	
+	// create new file
+	_, err = os.Create(filePath)
+	if err != nil {
+		var errorsString string = fmt.Sprintf("File %s cannot be created successfully", filePath)
+		return errors.New(errorsString)
+	}	
+		
+	return nil	
+}
